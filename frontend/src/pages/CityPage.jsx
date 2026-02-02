@@ -87,22 +87,21 @@ function CityPage() {
   }, [city, dispatch]);
 
   return (
-    <div className="min-h-screen bg-amber-200 flex items-center justify-center px-10 py-8">
-      <h1>CityPage - {city}</h1>
-      <div>
-        {loading && <h1>Loading...</h1>}
-        {error && <h1>Error: {error}</h1>}
-        {weatherData && (
-          <>
+    <div className="min-h-screen flex justify-center mt-10">
+      {loading && <h1>Loading...</h1>}
+      {error && <h1>Error: {error}</h1>}
+      {weatherData && (
+        <div className="flex flex-col">
+          <div className="flex flex-row gap-4">
             <CurrentWeather
               data={weatherData.current}
               location={weatherData.location}
             />
             <HourlyForecast data={weatherData.hourly} />
-            <WeeklyForecast data={weatherData.weekly} />
-          </>
-        )}
-      </div>
+          </div>
+          <WeeklyForecast data={weatherData.weekly} />
+        </div>
+      )}
     </div>
   );
 }

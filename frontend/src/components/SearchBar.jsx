@@ -133,14 +133,14 @@ function SearchBar() {
   };
 
   return (
-    <div className="relative" ref={suggestionsRef}>
+    <div className="relative mt-15" ref={suggestionsRef}>
       <form onSubmit={handleSubmit} className="flex items-center">
         <div className="relative">
           <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             🔎
           </span>
           <input
-            className="w-64 h-10 pl-10 pr-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-200 glass text-white h-10 pl-10 pr-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             type="text"
             value={city}
             onChange={handleInputChange}
@@ -155,7 +155,7 @@ function SearchBar() {
         </div>
         <button
           type="submit"
-          className="h-10 px-4 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+          className="h-10 px-4 ml-2 glass text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
           disabled={!city.trim()}
           aria-label="Search"
         >

@@ -14,8 +14,8 @@ function Dashboard() {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen bg-amber-200 p-8">
-      <h1 className="text-3xl font-bold mb-8">Weather Dashboard</h1>
+    <div className="min-h-screen  p-8">
+      <h1 className="text-3xl font-bold mb-8">Popular cities</h1>
 
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-600">Error: {error}</p>}

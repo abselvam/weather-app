@@ -1,1 +1,104 @@
 @import "tailwindcss";
+
+/* Dark cozy bluish sunset sky (white-text friendly) */
+.bg-sky {
+  background: linear-gradient(
+    135deg,
+    #020617 0%,
+    /* near-black midnight blue */ #020c2b 18%,
+    /* deep navy */ #0b1c4d 35%,
+    /* rich blue dusk */ #1e1b4b 55%,
+    /* indigo night */ #3b0764 72%,
+    /* subtle violet warmth */ #7c2d12 180% /* muted sunset ember */
+  );
+}
+
+/* Soft blended sunset clouds */
+.cloud {
+  position: absolute;
+  width: 460px;
+  height: 220px;
+  background: rgba(255, 244, 230, 0.35); /* warm off-white */
+  border-radius: 999px;
+  filter: blur(28px);
+  opacity: 0.55;
+  z-index: 0;
+  animation: float 120s linear infinite;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+
+/* Cloud volume – subtle and warm */
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 235, 210, 0.35);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  top: -40px;
+}
+
+.cloud::before {
+  left: 80px;
+}
+
+.cloud::after {
+  right: 80px;
+}
+
+.cloud-1 {
+  top: 15%;
+  --start-x: -20vw; /* closer start */
+  --end-x: 145vw;
+  animation-duration: 120s; /* faster entry */
+  animation-delay: 0s;
+  animation-timing-function: linear;
+}
+
+.cloud-2 {
+  top: 45%;
+  width: 560px;
+  height: 260px;
+  --start-x: -30vw;
+  --end-x: 155vw;
+  animation-duration: 150s;
+  animation-delay: 18s; /* short wait */
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.cloud-3 {
+  top: 72%;
+  width: 420px;
+  height: 200px;
+  --start-x: -50vw;
+  --end-x: 150vw;
+  animation-duration: 140s;
+  animation-delay: 32s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.04)
+  );
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+@keyframes float {
+  from {
+    transform: translateX(var(--start-x));
+  }
+  to {
+    transform: translateX(var(--end-x));
+  }
+}
