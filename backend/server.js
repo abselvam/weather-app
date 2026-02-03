@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 dotenv.config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -15,28 +16,6 @@ const __dirname = path.dirname(__filename);
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Serve static files from frontend build in production
-if (process.env.NODE_ENV === "production") {
-  // Assuming your frontend builds to 'dist' folder (Vite default)
-  const frontendPath = path.join(__dirname, "../frontend/dist");
-
-  // Check if the build directory exists
-  const fs = await import("fs");
-
-  if (fs.existsSync(frontendPath)) {
-    console.log(`Serving static files from: ${frontendPath}`);
-    app.use(express.static(frontendPath));
-
-    // Serve index.html for any unknown routes (SPA routing)
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(frontendPath, "index.html"));
-    });
-  } else {
-    console.warn(`Frontend build directory not found at: ${frontendPath}`);
-    console.warn("Running in API-only mode");
-  }
-}
 
 // Weather API endpoint
 app.get("/api/weather", async (req, res) => {
@@ -66,9 +45,9 @@ app.get("/api/weather", async (req, res) => {
   }
 });
 
-// Add to your server.js
+// Search API endpoint
 app.get("/api/search", async (req, res) => {
-  const { q } = req.query; // 'q' is the search query
+  const { q } = req.query;
 
   if (!q || q.length < 2) {
     return res.status(400).json({
@@ -97,6 +76,27 @@ app.get("/api/search", async (req, res) => {
     res.status(500).json({ error: "error fetching search data." });
   }
 });
+
+// Serve static files from frontend build in production
+if (process.env.NODE_ENV === "production") {
+  const frontendPath = path.join(__dirname, "../frontend/dist");
+
+  // Check if the build directory exists
+  const fs = await import("fs");
+  if (fs.existsSync(frontendPath)) {
+    console.log(`Serving static files from: ${frontendPath}`);
+    app.use(express.static(frontendPath));
+
+    // Serve index.html for any unknown routes (SPA routing)
+    // This should be AFTER all API routes
+    app.get("/*", (req, res) => {
+      res.sendFile(path.join(frontendPath, "index.html"));
+    });
+  } else {
+    console.warn(`Frontend build directory not found at: ${frontendPath}`);
+    console.warn("Running in API-only mode");
+  }
+}
 
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
