@@ -88,8 +88,8 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static(frontendPath));
 
     // Serve index.html for any unknown routes (SPA routing)
-    // This should be AFTER all API routes
-    app.get("/*", (req, res) => {
+    // Use app.use() instead of app.get() for catch-all in Express 5
+    app.use((req, res) => {
       res.sendFile(path.join(frontendPath, "index.html"));
     });
   } else {
