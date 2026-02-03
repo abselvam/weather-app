@@ -91,14 +91,13 @@ function CityPage() {
       {loading && <h1>Loading...</h1>}
       {error && <h1>Error: {error}</h1>}
       {weatherData && (
-        <div className="flex flex-col">
-          <div className="flex flex-row gap-4">
-            <CurrentWeather
-              data={weatherData.current}
-              location={weatherData.location}
-            />
-            <HourlyForecast data={weatherData.hourly} />
-          </div>
+        <div className="flex flex-col gap-4">
+          <CurrentWeather
+            data={weatherData.current}
+            location={weatherData.location}
+          />
+          <HourlyForecast data={weatherData.hourly} />
+
           <WeeklyForecast data={weatherData.weekly} />
         </div>
       )}
